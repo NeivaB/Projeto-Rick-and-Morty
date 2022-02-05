@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Rick and Marty API</title>
+</head>
+
+<body>
+    <div class="card_busca">
+        <input id="id_personagem" type="number">
+        <button onclick="buscarPersonagem()">Buscar</button>
+    </div>
+    
+    <div class="card-personagem">
+       <div id="nome"></div> 
+        <img width="120px" id="imagem_personagem" src="" alt="">
+        <ul>
+            <li id="status"></li>
+            <li id="especie"></li>
+            <li id="tipo"></li>
+            <li id="sexo"></li>
+        </ul>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+
+    function buscarPersonagem() {
+
+        const idPersonagem = document.getElementById("id_personagem").value
+
+
+        $.ajax({
+            url: "https://rickandmortyapi.com/api/character/" + idPersonagem,
+            type: "get",
+            success: function (result) {
+                console.log(result)
+
+                document.getElementById("imagem_personagem").src = result.image
+                document.getElementById("nome").innerHTML = result.name
+                document.getElementById("status").innerHTML = result.status
+                document.getElementById("especie").innerHTML = result.species
+                document.getElementById("tipo").innerHTML = result.type
+                document.getElementById("sexo").innerHTML = result.gender
+            }
+        });
+    }
+
+</script>
+<style>
+    .card-personagem {
+        background-color: rgb(208, 208, 250);
+        border: solid blue 5px;
+        width: fit-content;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .card-busca {
+        background-color: rgb(208, 208, 250);
+        border: solid blue 2px;
+        width: fit-content;
+        margin-bottom: 10px
+    }
+</style>
